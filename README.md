@@ -12,6 +12,19 @@
 - 🔬 核心路线：**引擎全自研 + 模型全自研**（三元/低比特自训练；算子、加载、KV、调度全自写，参考算法不抄实现）
 - 💻 开发机：T0 档（i7-1165G7 + Iris Xe + 16GB 单通道），本机为最低配验收机
 
+## 仓库结构
+
+```
+yk-model/
+├── engine/    自研推理引擎源码（YkEngine，C/C++）
+├── train/     自研模型训练脚本（YkNet）
+├── dist/      获取入口：yk-release.yaml + yk install（自研 CLI）
+├── docs/      架构蓝图/证据库/基准口径/环境手册
+└── CLAUDE.md  Claude Code 引导
+```
+
+发行物：自研引擎二进制（Release）+ 自研模型（ModelScope/HF，开发期本地暂存），`yk install` 一键获取。
+
 ## 阶段状态（全自研重排）
 
 - [ ] P0：自研最小推理链骨架（格式 + 加载 + 单设备推理），轻量工具链就绪

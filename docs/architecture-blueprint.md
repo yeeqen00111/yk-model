@@ -249,9 +249,41 @@ YkFormat 单文件
 
 ## 10. 装配与分发（全自研版：无第三方运行时依赖）
 
-- **仓库（git）**：引擎源码（C/C++）、模型训练与转换工具、控制面 Python、打包分发脚本——**自研资产全部入库**。
-- **D:\model-store/**：自研**构建产物**（编译出的引擎二进制）与**自训/自转模型权重**的本地缓存（不入库）。
-- **分发形态**：发行包 = 自研引擎 + 自研模型 + 控制面，随项目免安装开箱即用。
+### 10.1 仓库结构（git，轻，只放自研源码）
+```
+yk-model/                    ← git 仓库
+├── engine/   自研引擎源码(C/C++)          （P0 起逐步填充）
+├── train/    自研训练脚本                 （Gen-0 起填充）
+├── docs/     文档
+├── dist/     yk-release.yaml 清单 + yk 安装器（自研）   ← 获取入口
+└── ...
+```
+- D:\build 编译产物、D:\model-store 大文件（引擎二进制/模型权重）**不入库**。
+
+### 10.2 分发三件套（与行业标准一致，不发明新玩具）
+1. **模型权重（GB 级，自训）** → 上传 **ModelScope/HuggingFace**（默认双源，图内可换源）。仓库只存 `model_id + sha256`。
+2. **引擎二进制（自研编译产物）** → 发 **Gitee/GitHub Release**（同 llama.cpp 同逻辑）。源码在仓库，可自build。
+3. **`yk install`（自研 CLI）**：clone 仓库 → 一条命令 → 按 `yk-release.yaml` 自动拉取模型（魔搭/HF）+ 引擎（Release），核验 SHA256，归位到 `D:\model-store`。首次使用多跑一条命令，换取仓库永远轻量。
+   - 初期（开发期）：模型先放本地 `D:\model-store\models\`，`yk install` 先走本地 stub，后续再补上传动作（用户决策 2026-09-20）。
+   - `yk on` 常用场景有 `install / run / list` 等子命令（后续在 P0 细化）。
+
+### 10.3 yk-release.yaml 字段（草案）
+```yaml
+schema: yk-release/v1
+version: 0.0.1
+engine:
+  source: gitee|github   # 发布源
+  tag: v0.0.1
+  sha256: <引擎二进制sha256>
+models:
+  - id: <model_id>           # 魔搭/HF 上的 ID
+    sha256: <权重sha256>
+    local: D:/model-store/models/gen0/  # 本地暂存路径（开发期）
+```
+
+### 10.4 基准/复现
+- 仓库 + `yk install` ⇒ 复现任何版本：源码可自 build，二进制经 SHA 校验，可追溯到发布 tag。
+
 - ⚠️ 遗留物记录：P0 早期误下载的 `D:\model-store\engines\llama.cpp\`（llama.cpp b11060 二进制）已**不属本项目**，未并入代码/清单；是否清理由用户定。
 
 ## 11. 决策日志
@@ -266,3 +298,4 @@ YkFormat 单文件
 - **2026-09-20：确立 YkNet 架构**（切片级三元 MoE + 逐 token 动态深度 + 细粒度冷热切片驻留（冷落盘）+ 分级精度），配套分代落地 Gen-0（Dense 三元立闭环）→ Gen-1（切片 MoE 完整形态）→ Gen-2（放大+上下文强化）。见第 6 节。
 - **2026-09-20：不需要通用基座模型**（用户决策）。模型 = 能力不装知识；知识走本地文档/RAG 外挂；定位为专用 + 私密 + 快。
 - **2026-09-20：确立推理引擎架构（YkEngine）**。先立「YkNet→YkEngine 接口契约」（6 条，C1–C6），再据此定分层结构（kern/exec/mem/kv/ctx）、逐 token 三阶段流水、YkFormat 权重格式草案。引擎由契约驱动，不从通用草案出发（见 §6A）。
+- **2026-09-20：确立分发机制 = 行业标准式**（用户认可）。模型上传 ModelScope/HF、引擎二进制发 Release、仓库只存源码 + `yk-release.yaml` 清单 + 自研 `yk install` CLI；**不把二进制/模型 commit 进 git**。分支细节：模型开发期先放本地 `D:\model-store\models\`，后续再上传（见 §10）。

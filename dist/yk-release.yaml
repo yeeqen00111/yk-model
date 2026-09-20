@@ -1,0 +1,20 @@
+# yk-release 清单（草案 v1）
+
+# 开发期：模型先走本地 stub（用户决策 2026-09-20），后续再补上传到 ModelScope/HuggingFace
+# 引擎：自研源码可自 build（见 engine/），二进制后续发 Gitee/GitHub Release
+
+schema: yk-release/v1
+version: 0.0.1
+
+engine:
+  source: local          # 开发期 = 本地 build；发布期 = gitee|github Release
+  tag: 0.0.1-dev
+  sha256: ""             # 待首版构建后回填
+  build: >-
+    见 engine/ 构建说明（Zig / MinGW，AVX-512 指令集）
+
+models:
+  - id: ""                # 待自训模型产出后回填（魔搭/HF model_id）
+    sha256: ""
+    local: D:/model-store/models/gen0/   # 开发期本地暂存
+    format: YkFormat                     # §6A.4
