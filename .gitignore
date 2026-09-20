@@ -20,11 +20,14 @@ models/*
 *.pth
 *.onnx
 
-# 引擎二进制 / 构建产物
+# 构建产物（不入库；自研引擎源码在 engine/ 必须入库）
 bin/
-engine/
 /build/
 /build-release/
+*.o
+*.obj
+*.exe
+*.dll
 
 # 缓存与日志
 .cache/
