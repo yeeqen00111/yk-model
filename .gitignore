@@ -1,0 +1,45 @@
+# Python / 通用
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.venv/
+env/
+*.egg-info/
+
+# conda
+.conda/
+conda-lock.yml
+conda-lock.yaml
+
+# 模型等大数据（不入库，另行管理 D:\model-store）
+models/*
+!models/README.md
+*.gguf
+*.safetensors
+*.pth
+*.onnx
+
+# 引擎二进制 / 构建产物
+bin/
+engine/
+/build/
+/build-release/
+
+# 缓存与日志
+.cache/
+*.log
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# 基准原始输出（大文件）—— 结论入文档，原始 JSON 留本地
+benchmarks/raw/
+*.npy
+
+# OS / IDE
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
+*.swp

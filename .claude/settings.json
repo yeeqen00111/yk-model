@@ -1,0 +1,30 @@
+{
+  // yk-model 项目级 Claude Code 配置（共享，随仓库分发）
+  // 个人私有偏好请放 .claude/settings.local.json（不入库）
+  // 权限按"前缀匹配"生效；需要更宽时在此追加
+
+  // 允许访问项目目录外的引擎/模型仓库
+  "additionalDirectories": ["D:/model-store"],
+
+  "permissions": {
+    "allow": [
+      // conda（Git Bash 下命令名是 conda，完整路径亦放行）
+      "conda*",
+      "D:/application/env/miniconda3/Scripts/conda.exe*",
+      // Python 控制面 + 包管理
+      "python*",
+      "python3*",
+      "pip*",
+      // Git 常规操作（commit/diff/log/add/status/init）
+      "git commit*",
+      "git add*",
+      "git diff*",
+      "git log*",
+      "git status*",
+      "git init*"
+    ],
+    "deny": []
+  },
+
+  "hooks": {}
+}
