@@ -8,6 +8,7 @@
 - 🔬 研究证据库：[docs/research-notes.md](docs/research-notes.md)
 - 📏 基准方法论：[docs/benchmark-methodology.md](docs/benchmark-methodology.md)
 - 🛠 环境手册：[docs/dev-environment.md](docs/dev-environment.md)
+- 🔍 自检工序：[docs/self-check.md](docs/self-check.md)（交付前必过）
 - 🤖 Claude Code 引导：[CLAUDE.md](CLAUDE.md)（vibe coding 自动加载）
 - 🔬 核心路线：**引擎全自研 + 模型全自研**（三元/低比特自训练；算子、加载、KV、调度全自写，参考算法不抄实现）
 - 💻 开发机：T0 档（i7-1165G7 + Iris Xe + 16GB 单通道），本机为最低配验收机

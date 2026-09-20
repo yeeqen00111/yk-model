@@ -10,6 +10,12 @@
 - `docs/research-notes.md` — 为什么信（证据库：哪些可信、哪些开放）
 - `docs/benchmark-methodology.md` — 怎么证明（**性能结论必须过它的口径**）
 - `docs/dev-environment.md` — 环境实测手册（命令全集、验证方法）
+- `docs/self-check.md` — **自检工序**（每次改动后交付前必过）
+
+## 交付前必做：自检工序
+
+- **改动完成 → 提交前 → 过一遍 `docs/self-check.md`** 全清单（残留扫描/入库验证/交叉引用/决策对齐/事实一致/提交纪律）。
+- self-check 里抓到的真 bug（如 .gitignore 误伤源码目录）**必须修复后提交**，不允许带着已知不一致交付。
 
 ## 环境铁律（违反即坑）
 

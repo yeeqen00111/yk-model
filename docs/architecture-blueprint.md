@@ -299,3 +299,4 @@ models:
 - **2026-09-20：不需要通用基座模型**（用户决策）。模型 = 能力不装知识；知识走本地文档/RAG 外挂；定位为专用 + 私密 + 快。
 - **2026-09-20：确立推理引擎架构（YkEngine）**。先立「YkNet→YkEngine 接口契约」（6 条，C1–C6），再据此定分层结构（kern/exec/mem/kv/ctx）、逐 token 三阶段流水、YkFormat 权重格式草案。引擎由契约驱动，不从通用草案出发（见 §6A）。
 - **2026-09-20：确立分发机制 = 行业标准式**（用户认可）。模型上传 ModelScope/HF、引擎二进制发 Release、仓库只存源码 + `yk-release.yaml` 清单 + 自研 `yk install` CLI；**不把二进制/模型 commit 进 git**。分支细节：模型开发期先放本地 `D:\model-store\models\`，后续再上传（见 §10）。
+- **2026-09-20：固化自检工序**（docs/self-check.md）。每次改动后、提交前必过 7 步清单；曾由它真实抓出 .gitignore 误排除 `engine/` 源码目录的 bug（c43891c 修复）。
